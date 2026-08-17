@@ -1,1 +1,2116 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>StockSync – Smart Inventory Management Software</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container" id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo">
+                    <img src="assets/logo.svg" alt="StockSync logo" class="logo-icon-img">
+                    <span class="logo-text">StockSync</span>
+                </div>
+            </div>
+            <ul class="sidebar-nav" id="sidebarNav">
+                <li><a href="#" data-page="dashboard" class="active"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
+                <li><a href="#" data-page="inventory"><i class="fas fa-boxes"></i><span>Inventory</span></a></li>
+                <li><a href="#" data-page="barcode"><i class="fas fa-barcode"></i><span>Barcode Scanner</span></a></li>
+                <li><a href="#" data-page="analytics"><i class="fas fa-chart-line"></i><span>Sales Analytics</span></a></li>
+                <li><a href="#" data-page="forecast"><i class="fas fa-robot"></i><span>AI Forecast</span></a></li>
+                <li><a href="#" data-page="reports"><i class="fas fa-file-alt"></i><span>Reports</span></a></li>
+                <li><a href="#" data-page="suppliers"><i class="fas fa-truck"></i><span>Suppliers</span></a></li>
+                <li><a href="#" data-page="purchase-orders"><i class="fas fa-clipboard-list"></i><span>Purchase Orders</span></a></li>
+                <li><a href="#" data-page="warehouses"><i class="fas fa-warehouse"></i><span>Warehouses</span></a></li>
+                <li><a href="#" data-page="notifications"><i class="fas fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="#" data-page="profile"><i class="fas fa-user-cog"></i><span>Profile & Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <div class="search-bar">
+                        <i class="fas fa-search text-muted"></i>
+                        <input type="text" placeholder="Search products, orders, suppliers..." id="globalSearch">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="icon-toggle-btn" id="headerDarkToggle" onclick="toggleDarkMode()" title="Toggle dark mode" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon" id="headerDarkIcon"></i>
+                    </button>
+                    <button class="notification-btn" onclick="navigateTo('notifications')" title="Notifications" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    <div class="user-profile" onclick="navigateTo('profile')">
+                        <div class="user-avatar">GN</div>
+                        <div class="user-info">
+                            <span class="user-name">Gananath Naik</span>
+                            <span class="user-role">Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div id="pageContent">
+                <!-- Dashboard Page -->
+                <div class="page active" id="dashboard">
+                    <h2 style="margin-bottom: 10px;">Welcome back, <Gananath></Gananath>! 👋</h2>
+                    <p class="text-muted mb-20">Here's what's happening with your inventory today.</p>
+                    
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fas fa-box"></i></div>
+                            <div class="kpi-info">
+                                <h3>1,248</h3>
+                                <p>Total Products</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon orange"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="kpi-info">
+                                <h3>32</h3>
+                                <p>Low Stock Items</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fas fa-rupee-sign"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹1,25,430</h3>
+                                <p>Revenue Today</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon purple"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹42,680</h3>
+                                <p>Sales Today</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="kpi-info">
+                                <h3>86</h3>
+                                <p>Active Orders</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fas fa-coins"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹28,45,630</h3>
+                                <p>Stock Value</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-line text-primary"></i> Sales Overview</span>
+                                <span class="text-sm text-muted">Weekly</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="salesOverviewChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-pie text-primary"></i> Top Selling Products</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="topSellingChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-bolt text-primary"></i> Quick Actions</span>
+                        </div>
+                        <div class="flex gap-20" style="flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="navigateTo('add-product')"><i class="fas fa-plus"></i> Add Product</button>
+                            <button class="btn btn-green" onclick="navigateTo('barcode')"><i class="fas fa-barcode"></i> Scan Barcode</button>
+                            <button class="btn btn-secondary" onclick="navigateTo('reports')"><i class="fas fa-file-download"></i> Reports</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-clock text-primary"></i> Recent Activity</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-20 mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap;">
+                                <i class="fas fa-plus-circle text-green" style="font-size: 1.2rem;"></i>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <strong>New product added</strong>
+                                    <p class="text-sm text-muted">Wireless Keyboard added to inventory</p>
+                                </div>
+                                <span class="text-sm text-muted">2 min ago</span>
+                            </div>
+                            <div class="flex items-center gap-20 mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap;">
+                                <i class="fas fa-shopping-cart text-blue" style="font-size: 1.2rem; color: var(--primary);"></i>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <strong>New order received</strong>
+                                    <p class="text-sm text-muted">Order #SO-1024 from TechGear Solutions</p>
+                                </div>
+                                <span class="text-sm text-muted">15 min ago</span>
+                            </div>
+                            <div class="flex items-center gap-20 mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap;">
+                                <i class="fas fa-exclamation-triangle text-orange" style="font-size: 1.2rem; color: var(--orange);"></i>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <strong>Low stock alert</strong>
+                                    <p class="text-sm text-muted">Wireless Headphones is running low</p>
+                                </div>
+                                <span class="text-sm text-muted">1 hour ago</span>
+                            </div>
+                            <div class="flex items-center gap-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap;">
+                                <i class="fas fa-truck text-purple" style="font-size: 1.2rem; color: var(--purple);"></i>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <strong>Supplier update</strong>
+                                    <p class="text-sm text-muted">Global Supplies updated delivery date</p>
+                                </div>
+                                <span class="text-sm text-muted">3 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Page -->
+                <div class="page" id="inventory" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Inventory</h2>
+                        <button class="btn btn-primary" onclick="navigateTo('add-product')"><i class="fas fa-plus"></i> Add Product</button>
+                    </div>
+                    
+                    <div class="flex gap-20 mb-20" style="flex-wrap: wrap;">
+                        <div class="search-bar" style="flex: 2; min-width: 200px;">
+                            <i class="fas fa-search text-muted"></i>
+                            <input type="text" placeholder="Search products..." id="inventorySearch">
+                        </div>
+                        <select class="form-input" style="flex: 1; max-width: 200px; min-width: 150px;" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Office">Office</option>
+                            <option value="Home">Home</option>
+                        </select>
+                        <select class="form-input" style="flex: 1; max-width: 200px; min-width: 150px;" id="sortBy">
+                            <option value="name">Sort by Name</option>
+                            <option value="quantity">Sort by Quantity</option>
+                            <option value="price">Sort by Price</option>
+                        </select>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Total Products: <strong id="totalProducts">1,248</strong></span>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="product-table" id="productTable">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>SKU</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Warehouse</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onclick="navigateTo('product-details')" style="cursor: pointer;">
+                                        <td>
+                                            <div class="flex items-center gap-10">
+                                                <div style="width: 40px; height: 40px; background: var(--grey-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-headphones"></i></div>
+                                                Wireless Headphones
+                                            </div>
+                                        </td>
+                                        <td>WH-1001</td>
+                                        <td>Electronics</td>
+                                        <td>150</td>
+                                        <td>Main Warehouse</td>
+                                        <td><span class="stock-badge in-stock">🟢 In Stock</span></td>
+                                    </tr>
+                                    <tr onclick="navigateTo('product-details')" style="cursor: pointer;">
+                                        <td>
+                                            <div class="flex items-center gap-10">
+                                                <div style="width: 40px; height: 40px; background: var(--grey-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-mouse"></i></div>
+                                                Wireless Mouse
+                                            </div>
+                                        </td>
+                                        <td>WM-2002</td>
+                                        <td>Accessories</td>
+                                        <td>25</td>
+                                        <td>North Warehouse</td>
+                                        <td><span class="stock-badge low-stock">🟡 Low Stock</span></td>
+                                    </tr>
+                                    <tr onclick="navigateTo('product-details')" style="cursor: pointer;">
+                                        <td>
+                                            <div class="flex items-center gap-10">
+                                                <div style="width: 40px; height: 40px; background: var(--grey-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-flask"></i></div>
+                                                Stainless Steel Bottle
+                                            </div>
+                                        </td>
+                                        <td>SSB-3003</td>
+                                        <td>Home</td>
+                                        <td>0</td>
+                                        <td>West Warehouse</td>
+                                        <td><span class="stock-badge out-of-stock">🔴 Out of Stock</span></td>
+                                    </tr>
+                                    <tr onclick="navigateTo('product-details')" style="cursor: pointer;">
+                                        <td>
+                                            <div class="flex items-center gap-10">
+                                                <div style="width: 40px; height: 40px; background: var(--grey-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-book"></i></div>
+                                                Spiral Notebook
+                                            </div>
+                                        </td>
+                                        <td>SN-4004</td>
+                                        <td>Office</td>
+                                        <td>500</td>
+                                        <td>Main Warehouse</td>
+                                        <td><span class="stock-badge in-stock">🟢 In Stock</span></td>
+                                    </tr>
+                                    <tr onclick="navigateTo('product-details')" style="cursor: pointer;">
+                                        <td>
+                                            <div class="flex items-center gap-10">
+                                                <div style="width: 40px; height: 40px; background: var(--grey-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-cable"></i></div>
+                                                USB-C Cable
+                                            </div>
+                                        </td>
+                                        <td>UC-5005</td>
+                                        <td>Accessories</td>
+                                        <td>75</td>
+                                        <td>South Warehouse</td>
+                                        <td><span class="stock-badge low-stock">🟡 Low Stock</span></td>
+                                    </tr>
+                                    <tr onclick="navigateTo('product-details')" style="cursor: pointer;">
+                                        <td>
+                                            <div class="flex items-center gap-10">
+                                                <div style="width: 40px; height: 40px; background: var(--grey-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fas fa-file"></i></div>
+                                                A4 Paper Ream
+                                            </div>
+                                        </td>
+                                        <td>AP-6006</td>
+                                        <td>Office</td>
+                                        <td>200</td>
+                                        <td>East Warehouse</td>
+                                        <td><span class="stock-badge in-stock">🟢 In Stock</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Product Page -->
+                <div class="page" id="add-product" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Add New Product</h2>
+                        <button class="btn btn-secondary" onclick="navigateTo('inventory')"><i class="fas fa-arrow-left"></i> Back to Inventory</button>
+                    </div>
+                    
+                    <div class="card" style="max-width: 800px; margin: 0 auto;">
+                        <form id="addProductForm" onsubmit="handleAddProduct(event)">
+                            <div class="form-group">
+                                <label class="form-label">Product Name *</label>
+                                <input type="text" class="form-input" id="productName" required placeholder="e.g. Bluetooth Speaker">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label">SKU *</label>
+                                    <input type="text" class="form-input" id="productSKU" required placeholder="e.g. BS-7001">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Barcode</label>
+                                    <input type="text" class="form-input" id="productBarcode" placeholder="e.g. 8901234567890">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label">Category *</label>
+                                    <select class="form-input" id="productCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Accessories">Accessories</option>
+                                        <option value="Office">Office</option>
+                                        <option value="Home">Home</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Supplier *</label>
+                                    <select class="form-input" id="productSupplier" required>
+                                        <option value="">Select Supplier</option>
+                                        <option value="TechGear Solutions">TechGear Solutions</option>
+                                        <option value="Global Supplies Inc.">Global Supplies Inc.</option>
+                                        <option value="Prime Traders">Prime Traders</option>
+                                        <option value="OfficeMart">OfficeMart</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label">Cost Price (₹) *</label>
+                                    <input type="number" class="form-input" id="costPrice" required placeholder="0.00">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Selling Price (₹) *</label>
+                                    <input type="number" class="form-input" id="sellingPrice" required placeholder="0.00">
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div class="form-group">
+                                    <label class="form-label">Quantity *</label>
+                                    <input type="number" class="form-input" id="productQuantity" required placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Warehouse *</label>
+                                    <select class="form-input" id="productWarehouse" required>
+                                        <option value="">Select Warehouse</option>
+                                        <option value="Main Warehouse">Main Warehouse</option>
+                                        <option value="North Warehouse">North Warehouse</option>
+                                        <option value="West Warehouse">West Warehouse</option>
+                                        <option value="South Warehouse">South Warehouse</option>
+                                        <option value="East Warehouse">East Warehouse</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Product Image</label>
+                                <input type="file" class="form-input" id="productImage" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Product Description</label>
+                                <textarea class="form-input" id="productDescription" rows="4" placeholder="Brief description of the product"></textarea>
+                            </div>
+                            <div class="flex gap-20" style="flex-wrap: wrap;">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Product</button>
+                                <button type="button" class="btn btn-secondary" onclick="handleSaveAndAddAnother()"><i class="fas fa-plus"></i> Save & Add Another</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Product Details Page -->
+                <div class="page" id="product-details" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Product Details</h2>
+                        <button class="btn btn-secondary" onclick="navigateTo('inventory')"><i class="fas fa-arrow-left"></i> Back to Inventory</button>
+                    </div>
+                    
+                    <div class="card mb-20">
+                        <div class="flex gap-20" style="flex-wrap: wrap;">
+                            <div style="width: 150px; height: 150px; background: var(--grey-light); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 3rem; flex-shrink: 0;">
+                                <i class="fas fa-headphones"></i>
+                            </div>
+                            <div style="flex: 1; min-width: 250px;">
+                                <h3 style="font-size: 1.5rem;">Wireless Headphones</h3>
+                                <p class="text-muted">SKU: WH-1001 | Barcode: 8901234567890</p>
+                                <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div><strong>Category:</strong> Electronics</div>
+                                    <div><strong>Stock Quantity:</strong> 150 Units</div>
+                                    <div><strong>Minimum Stock:</strong> 30 Units</div>
+                                    <div><strong>Supplier:</strong> TechGear Solutions</div>
+                                    <div><strong>Warehouse:</strong> Main Warehouse</div>
+                                    <div><strong>Cost Price:</strong> ₹1,499</div>
+                                    <div><strong>Selling Price:</strong> ₹2,499</div>
+                                    <div><strong>Status:</strong> <span class="stock-badge in-stock">🟢 In Stock</span></div>
+                                </div>
+                                <div class="flex gap-20 mt-20" style="flex-wrap: wrap;">
+                                    <button class="btn btn-primary" onclick="showToast('Product updated successfully!')"><i class="fas fa-edit"></i> Edit Product</button>
+                                    <button class="btn btn-red" onclick="showDeleteModal()"><i class="fas fa-trash"></i> Delete Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-line text-primary"></i> Sales History</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="productSalesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-exchange-alt text-primary"></i> Stock Movement</span>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <div class="flex items-center gap-10 mb-20" style="flex-wrap: wrap;">
+                                    <i class="fas fa-arrow-down text-green" style="color: var(--green);"></i>
+                                    <div style="flex: 1; min-width: 150px;"><strong>Stock In</strong><p class="text-sm text-muted">+50 units from TechGear Solutions</p></div>
+                                    <span class="text-sm text-muted">Mar 15, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-10 mb-20" style="flex-wrap: wrap;">
+                                    <i class="fas fa-arrow-up text-red" style="color: var(--red);"></i>
+                                    <div style="flex: 1; min-width: 150px;"><strong>Stock Out</strong><p class="text-sm text-muted">-20 units to Order #SO-1020</p></div>
+                                    <span class="text-sm text-muted">Mar 12, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-10 mb-20" style="flex-wrap: wrap;">
+                                    <i class="fas fa-arrow-down text-green" style="color: var(--green);"></i>
+                                    <div style="flex: 1; min-width: 150px;"><strong>Stock In</strong><p class="text-sm text-muted">+100 units from Global Supplies</p></div>
+                                    <span class="text-sm text-muted">Mar 08, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-10" style="flex-wrap: wrap;">
+                                    <i class="fas fa-arrow-up text-red" style="color: var(--red);"></i>
+                                    <div style="flex: 1; min-width: 150px;"><strong>Stock Out</strong><p class="text-sm text-muted">-10 units to Order #SO-1015</p></div>
+                                    <span class="text-sm text-muted">Mar 05, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barcode Scanner Page -->
+                <div class="page" id="barcode" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Barcode Scanner</h2>
+                        <button class="btn btn-secondary" onclick="navigateTo('inventory')"><i class="fas fa-arrow-left"></i> Back to Inventory</button>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <span class="card-title">Scan Barcode</span>
+                            </div>
+                            <div style="position: relative; width: 100%; max-width: 400px; margin: 0 auto; aspect-ratio: 1; background: var(--grey-light); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                                <i class="fas fa-camera" style="font-size: 4rem; color: var(--text-muted);"></i>
+                                <div style="position: absolute; width: 70%; height: 70%; border: 3px solid var(--primary); border-radius: 12px; animation: pulse 2s infinite;"></div>
+                                <div style="position: absolute; width: 100%; height: 3px; background: var(--red); animation: scanLine 2s infinite;"></div>
+                            </div>
+                            <div class="flex gap-20 mt-20" style="justify-content: center; flex-wrap: wrap;">
+                                <button class="btn btn-secondary" onclick="showToast('Flashlight toggled')"><i class="fas fa-bolt"></i> Flashlight</button>
+                                <button class="btn btn-secondary" onclick="showToast('Gallery opened')"><i class="fas fa-images"></i> Gallery</button>
+                            </div>
+                            <div class="mt-20">
+                                <input type="text" class="form-input" placeholder="Or enter barcode manually" id="manualBarcode" style="max-width: 300px; margin: 0 auto;">
+                            </div>
+                            <button class="btn btn-primary mt-20" onclick="simulateScan()"><i class="fas fa-barcode"></i> Simulate Scan</button>
+                        </div>
+                        
+                        <div>
+                            <div class="card mb-20" id="scanResult" style="display: none;">
+                                <div class="card-header">
+                                    <span class="card-title">Product Found</span>
+                                </div>
+                                <div class="flex items-center gap-20" style="flex-wrap: wrap;">
+                                    <div style="width: 80px; height: 80px; background: var(--grey-light); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0;">
+                                        <i class="fas fa-headphones"></i>
+                                    </div>
+                                    <div style="flex: 1; min-width: 180px;">
+                                        <h4>Wireless Headphones</h4>
+                                        <p class="text-sm text-muted">SKU: WH-1001</p>
+                                        <p class="text-sm"><strong>Price:</strong> ₹2,499</p>
+                                        <p class="text-sm"><strong>Stock:</strong> 150 Units</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-20 mt-20" style="flex-wrap: wrap;">
+                                    <button class="btn btn-primary btn-sm" onclick="navigateTo('product-details')"><i class="fas fa-eye"></i> View Details</button>
+                                    <button class="btn btn-green btn-sm" onclick="showToast('Product added to inventory')"><i class="fas fa-plus"></i> Add to Inventory</button>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="card-title"><i class="fas fa-history text-primary"></i> Scan History</span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-10 mb-20" style="flex-wrap: wrap;">
+                                        <i class="fas fa-headphones text-primary"></i>
+                                        <div style="flex: 1; min-width: 150px;"><strong>Wireless Headphones</strong><p class="text-sm text-muted">WH-1001</p></div>
+                                        <span class="text-sm text-muted">Today, 10:30 AM</span>
+                                    </div>
+                                    <div class="flex items-center gap-10 mb-20" style="flex-wrap: wrap;">
+                                        <i class="fas fa-mouse text-primary"></i>
+                                        <div style="flex: 1; min-width: 150px;"><strong>Wireless Mouse</strong><p class="text-sm text-muted">WM-2002</p></div>
+                                        <span class="text-sm text-muted">Today, 09:45 AM</span>
+                                    </div>
+                                    <div class="flex items-center gap-10" style="flex-wrap: wrap;">
+                                        <i class="fas fa-cable text-primary"></i>
+                                        <div style="flex: 1; min-width: 150px;"><strong>USB-C Cable</strong><p class="text-sm text-muted">UC-5005</p></div>
+                                        <span class="text-sm text-muted">Yesterday</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Analytics Page -->
+                <div class="page" id="analytics" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Sales Analytics</h2>
+                        <div class="flex gap-10" style="flex-wrap: wrap;">
+                            <select class="form-input" id="periodSelector" style="max-width: 150px;">
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                            <select class="form-input" id="analyticsCategoryFilter" style="max-width: 170px;">
+                                <option value="all">All Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Office Supplies">Office Supplies</option>
+                                <option value="Home & Kitchen">Home & Kitchen</option>
+                                <option value="Stationery">Stationery</option>
+                                <option value="Accessories">Accessories</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-grid mb-20">
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fas fa-rupee-sign"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹12,45,680</h3>
+                                <p>Total Revenue</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fas fa-chart-bar"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹3,45,230</h3>
+                                <p>Total Profit</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon purple"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="kpi-info">
+                                <h3>1,248</h3>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon orange"><i class="fas fa-users"></i></div>
+                            <div class="kpi-info">
+                                <h3>892</h3>
+                                <p>Active Customers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid mb-20">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-line text-primary"></i> Revenue Overview</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="revenueOverviewChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-pie text-primary"></i> Sales by Category</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="salesByCategoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid mb-20">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-bar text-primary"></i> Sales by Month</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="salesByMonthChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-area text-primary"></i> Customer Growth</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="customerGrowthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-trophy text-primary"></i> Best Selling Products</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap; gap: 10px;">
+                                <div class="flex items-center gap-10">
+                                    <span style="font-weight: 700; color: var(--primary);">#1</span>
+                                    <div><strong>Wireless Headphones</strong><p class="text-sm text-muted">Electronics</p></div>
+                                </div>
+                                <div><strong>₹8,45,230</strong></div>
+                            </div>
+                            <div class="flex items-center justify-between mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap; gap: 10px;">
+                                <div class="flex items-center gap-10">
+                                    <span style="font-weight: 700; color: var(--primary);">#2</span>
+                                    <div><strong>Wireless Mouse</strong><p class="text-sm text-muted">Accessories</p></div>
+                                </div>
+                                <div><strong>₹5,23,450</strong></div>
+                            </div>
+                            <div class="flex items-center justify-between mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap; gap: 10px;">
+                                <div class="flex items-center gap-10">
+                                    <span style="font-weight: 700; color: var(--primary);">#3</span>
+                                    <div><strong>USB-C Cable</strong><p class="text-sm text-muted">Accessories</p></div>
+                                </div>
+                                <div><strong>₹3,45,670</strong></div>
+                            </div>
+                            <div class="flex items-center justify-between mb-20" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap; gap: 10px;">
+                                <div class="flex items-center gap-10">
+                                    <span style="font-weight: 700; color: var(--primary);">#4</span>
+                                    <div><strong>Spiral Notebook</strong><p class="text-sm text-muted">Office</p></div>
+                                </div>
+                                <div><strong>₹2,34,560</strong></div>
+                            </div>
+                            <div class="flex items-center justify-between" style="padding: 12px; background: var(--grey-light); border-radius: var(--radius-sm); flex-wrap: wrap; gap: 10px;">
+                                <div class="flex items-center gap-10">
+                                    <span style="font-weight: 700; color: var(--primary);">#5</span>
+                                    <div><strong>A4 Paper Ream</strong><p class="text-sm text-muted">Office</p></div>
+                                </div>
+                                <div><strong>₹1,45,230</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Demand Forecast Page -->
+                <div class="page" id="forecast" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2><i class="fas fa-robot text-primary"></i> AI Demand Forecast</h2>
+                        <button class="btn btn-primary" onclick="refreshForecast(this)"><i class="fas fa-sync"></i> Refresh Forecast</button>
+                    </div>
+                    
+                    <div class="kpi-grid mb-20">
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fas fa-bullseye"></i></div>
+                            <div class="kpi-info">
+                                <h3>92.4%</h3>
+                                <p>Forecast Accuracy</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fas fa-chart-line"></i></div>
+                            <div class="kpi-info">
+                                <h3>12,458</h3>
+                                <p>Total Forecasted Demand</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon red"><i class="fas fa-exclamation-circle"></i></div>
+                            <div class="kpi-info">
+                                <h3>5</h3>
+                                <p>Potential Stockouts</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon purple"><i class="fas fa-rupee-sign"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹8,45,230</h3>
+                                <p>Estimated Revenue Impact</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid mb-20">
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-area text-primary"></i> AI Demand Prediction</span>
+                            </div>
+                            <div class="chart-container" style="height: 350px;">
+                                <canvas id="aiForecastChart"></canvas>
+                            </div>
+                            <div class="flex gap-20 mt-20" style="justify-content: center; flex-wrap: wrap;">
+                                <span class="text-sm"><span style="display: inline-block; width: 12px; height: 12px; background: var(--primary); border-radius: 2px;"></span> Historical</span>
+                                <span class="text-sm"><span style="display: inline-block; width: 12px; height: 12px; background: var(--green); border-radius: 2px;"></span> AI Forecast</span>
+                                <span class="text-sm"><span style="display: inline-block; width: 12px; height: 12px; background: var(--orange); border-radius: 2px;"></span> Upper Bound</span>
+                                <span class="text-sm"><span style="display: inline-block; width: 12px; height: 12px; background: var(--purple); border-radius: 2px;"></span> Lower Bound</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid mb-20">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-bar text-primary"></i> Seasonal Forecast</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="seasonalForecastChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-heartbeat text-primary"></i> Inventory Health</span>
+                            </div>
+                            <div style="position: relative; width: 200px; height: 200px; margin: 0 auto;">
+                                <div style="position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(var(--green) 0% 82%, var(--grey-light) 82% 100%);"></div>
+                                <div style="position: absolute; inset: 20px; background: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                    <span style="font-size: 2.5rem; font-weight: 700; color: var(--green);">82</span>
+                                    <span class="text-muted">Healthy</span>
+                                </div>
+                            </div>
+                            <div class="mt-20">
+                                <p class="text-sm text-muted">Your inventory health is good, but some items need attention.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-shopping-cart text-primary"></i> Recommended Reorder</span>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Current Stock</th>
+                                        <th>Recommended Reorder</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Wireless Headphones</td>
+                                        <td>150</td>
+                                        <td>200</td>
+                                        <td><button class="btn btn-primary btn-sm" onclick="showToast('Reorder order created')">Reorder</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wireless Mouse</td>
+                                        <td>25</td>
+                                        <td>150</td>
+                                        <td><button class="btn btn-primary btn-sm" onclick="showToast('Reorder order created')">Reorder</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>USB-C Cable</td>
+                                        <td>75</td>
+                                        <td>100</td>
+                                        <td><button class="btn btn-primary btn-sm" onclick="showToast('Reorder order created')">Reorder</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-lightbulb text-primary"></i> AI Insights</span>
+                        </div>
+                        <div>
+                            <div class="flex items-start gap-10 mb-20">
+                                <i class="fas fa-arrow-up text-green" style="color: var(--green); margin-top: 4px;"></i>
+                                <p>Demand for Wireless Headphones is predicted to rise by 35% in the next month. Consider increasing stock.</p>
+                            </div>
+                            <div class="flex items-start gap-10 mb-20">
+                                <i class="fas fa-home text-purple" style="color: var(--purple); margin-top: 4px;"></i>
+                                <p>Home & Kitchen category is trending upward. Consider expanding product range.</p>
+                            </div>
+                            <div class="flex items-start gap-10">
+                                <i class="fas fa-exclamation-triangle text-orange" style="color: var(--orange); margin-top: 4px;"></i>
+                                <p>Several products are at risk of stockout within 2 weeks. Review reorder recommendations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Page -->
+                <div class="page" id="reports" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Reports</h2>
+                        <div class="flex gap-10" style="flex-wrap: wrap;">
+                            <input type="date" class="form-input" id="reportStartDate" style="max-width: 150px;">
+                            <input type="date" class="form-input" id="reportEndDate" style="max-width: 150px;">
+                            <select class="form-input" id="reportWarehouse" style="max-width: 150px;">
+                                <option value="">All Warehouses</option>
+                                <option value="main">Main Warehouse</option>
+                                <option value="north">North Warehouse</option>
+                                <option value="west">West Warehouse</option>
+                                <option value="south">South Warehouse</option>
+                                <option value="east">East Warehouse</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-grid">
+                        <div class="card">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon blue"><i class="fas fa-box"></i></div>
+                                <div><h4>Inventory Report</h4><p class="text-sm text-muted">Complete stock overview</p></div>
+                            </div>
+                            <div class="chart-container" style="height: 100px;">
+                                <canvas id="inventoryReportChart"></canvas>
+                            </div>
+                            <div class="flex gap-10 mt-20" style="flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Inventory report generated successfully!')"><i class="fas fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-green btn-sm" onclick="showToast('Report exported to Excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon green"><i class="fas fa-chart-line"></i></div>
+                                <div><h4>Sales Report</h4><p class="text-sm text-muted">Revenue and order data</p></div>
+                            </div>
+                            <div class="chart-container" style="height: 100px;">
+                                <canvas id="salesReportChart"></canvas>
+                            </div>
+                            <div class="flex gap-10 mt-20" style="flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Sales report generated successfully!')"><i class="fas fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-green btn-sm" onclick="showToast('Report exported to Excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon orange"><i class="fas fa-shopping-cart"></i></div>
+                                <div><h4>Purchase Report</h4><p class="text-sm text-muted">Supplier order details</p></div>
+                            </div>
+                            <div class="chart-container" style="height: 100px;">
+                                <canvas id="purchaseReportChart"></canvas>
+                            </div>
+                            <div class="flex gap-10 mt-20" style="flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" onclick="showToast('Purchase report generated successfully!')"><i class="fas fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-green btn-sm" onclick="showToast('Report exported to Excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon purple"><i class="fas fa-balance-scale"></i></div>
+                                <div><h4>Profit & Loss</h4><p class="text-sm text-muted">Financial performance</p></div>
+                            </div>
+                            <div class="chart-container" style="height: 100px;">
+                                <canvas id="profitLossChart"></canvas>
+                            </div>
+                            <div class="flex gap-10 mt-20" style="flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" onclick="showToast('P&L report generated successfully!')"><i class="fas fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-green btn-sm" onclick="showToast('Report exported to Excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon red"><i class="fas fa-file-invoice"></i></div>
+                                <div><h4>GST Report</h4><p class="text-sm text-muted">Tax compliance data</p></div>
+                            </div>
+                            <div class="chart-container" style="height: 100px;">
+                                <canvas id="gstReportChart"></canvas>
+                            </div>
+                            <div class="flex gap-10 mt-20" style="flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" onclick="showToast('GST report generated successfully!')"><i class="fas fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-green btn-sm" onclick="showToast('Report exported to Excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suppliers Page -->
+                <div class="page" id="suppliers" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Supplier Management</h2>
+                        <button class="btn btn-primary" onclick="showToast('Add supplier form opened')"><i class="fas fa-plus"></i> Add Supplier</button>
+                    </div>
+                    
+                    <div class="kpi-grid">
+                        <div class="card" onclick="showToast('TechGear Solutions details opened')" style="cursor: pointer;">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon blue"><i class="fas fa-microchip"></i></div>
+                                <div><h4>TechGear Solutions</h4><p class="text-sm text-muted">Electronics Supplier</p></div>
+                            </div>
+                            <div class="text-sm">
+                                <p><strong>Contact:</strong> Amit Patel</p>
+                                <p><strong>Phone:</strong> +91 98765 43210</p>
+                                <p><strong>Email:</strong> orders@techgear.in</p>
+                                <p><strong>Location:</strong> Mumbai, MH</p>
+                                <p><strong>Pending Orders:</strong> 3</p>
+                                <p><strong>Delivery Status:</strong> <span class="stock-badge in-stock">On Time</span></p>
+                                <p><strong>Payment:</strong> <span class="stock-badge in-stock">Cleared</span></p>
+                                <p><strong>Total Purchases:</strong> ₹12,45,000</p>
+                                <p><strong>Last Order:</strong> Mar 10, 2025</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showToast('Global Supplies Inc. details opened')" style="cursor: pointer;">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon green"><i class="fas fa-globe"></i></div>
+                                <div><h4>Global Supplies Inc.</h4><p class="text-sm text-muted">General Supplies</p></div>
+                            </div>
+                            <div class="text-sm">
+                                <p><strong>Contact:</strong> Sarah Chen</p>
+                                <p><strong>Phone:</strong> +91 87654 32109</p>
+                                <p><strong>Email:</strong> sales@globalsupplies.com</p>
+                                <p><strong>Location:</strong> Delhi, DL</p>
+                                <p><strong>Pending Orders:</strong> 1</p>
+                                <p><strong>Delivery Status:</strong> <span class="stock-badge low-stock">Delayed</span></p>
+                                <p><strong>Payment:</strong> <span class="stock-badge low-stock">Pending</span></p>
+                                <p><strong>Total Purchases:</strong> ₹8,45,000</p>
+                                <p><strong>Last Order:</strong> Mar 08, 2025</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showToast('Prime Traders details opened')" style="cursor: pointer;">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon orange"><i class="fas fa-store"></i></div>
+                                <div><h4>Prime Traders</h4><p class="text-sm text-muted">Home & Kitchen</p></div>
+                            </div>
+                            <div class="text-sm">
+                                <p><strong>Contact:</strong> Ravi Kumar</p>
+                                <p><strong>Phone:</strong> +91 76543 21098</p>
+                                <p><strong>Email:</strong> orders@primetraders.in</p>
+                                <p><strong>Location:</strong> Bengaluru, KA</p>
+                                <p><strong>Pending Orders:</strong> 0</p>
+                                <p><strong>Delivery Status:</strong> <span class="stock-badge in-stock">On Time</span></p>
+                                <p><strong>Payment:</strong> <span class="stock-badge in-stock">Cleared</span></p>
+                                <p><strong>Total Purchases:</strong> ₹5,67,000</p>
+                                <p><strong>Last Order:</strong> Feb 28, 2025</p>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showToast('OfficeMart details opened')" style="cursor: pointer;">
+                            <div class="flex items-center gap-20 mb-20">
+                                <div class="kpi-icon purple"><i class="fas fa-building"></i></div>
+                                <div><h4>OfficeMart</h4><p class="text-sm text-muted">Office Supplies</p></div>
+                            </div>
+                            <div class="text-sm">
+                                <p><strong>Contact:</strong> Priya Sharma</p>
+                                <p><strong>Phone:</strong> +91 65432 10987</p>
+                                <p><strong>Email:</strong> supplies@officemart.in</p>
+                                <p><strong>Location:</strong> Chennai, TN</p>
+                                <p><strong>Pending Orders:</strong> 2</p>
+                                <p><strong>Delivery Status:</strong> <span class="stock-badge in-stock">On Time</span></p>
+                                <p><strong>Payment:</strong> <span class="stock-badge in-stock">Cleared</span></p>
+                                <p><strong>Total Purchases:</strong> ₹4,56,000</p>
+                                <p><strong>Last Order:</strong> Mar 01, 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purchase Orders Page -->
+                <div class="page" id="purchase-orders" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Purchase Orders</h2>
+                        <button class="btn btn-primary" onclick="showToast('Create Purchase Order form opened')"><i class="fas fa-plus"></i> Create Purchase Order</button>
+                    </div>
+                    
+                    <div class="tab-group mb-20" id="poTabs">
+                        <button class="btn btn-primary btn-sm active" data-status="All" onclick="filterPOTab(this)">All</button>
+                        <button class="btn btn-outline btn-sm" data-status="Pending" onclick="filterPOTab(this)">Pending</button>
+                        <button class="btn btn-outline btn-sm" data-status="Approved" onclick="filterPOTab(this)">Approved</button>
+                        <button class="btn btn-outline btn-sm" data-status="Received" onclick="filterPOTab(this)">Received</button>
+                        <button class="btn btn-outline btn-sm" data-status="Cancelled" onclick="filterPOTab(this)">Cancelled</button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="table-scroll">
+                            <table class="product-table" id="poTable">
+                                <thead>
+                                    <tr>
+                                        <th>PO Number</th>
+                                        <th>Supplier</th>
+                                        <th>Items</th>
+                                        <th>Total Amount</th>
+                                        <th>Expected Delivery</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-status="Approved" onclick="showToast('Order #PO-2025-001 details opened')" style="cursor: pointer;">
+                                        <td>PO-2025-001</td>
+                                        <td>TechGear Solutions</td>
+                                        <td>5</td>
+                                        <td>₹45,670</td>
+                                        <td>Mar 20, 2025</td>
+                                        <td><span class="stock-badge in-stock">Approved</span></td>
+                                    </tr>
+                                    <tr data-status="Pending" onclick="showToast('Order #PO-2025-002 details opened')" style="cursor: pointer;">
+                                        <td>PO-2025-002</td>
+                                        <td>Global Supplies Inc.</td>
+                                        <td>8</td>
+                                        <td>₹23,450</td>
+                                        <td>Mar 25, 2025</td>
+                                        <td><span class="stock-badge low-stock">Pending</span></td>
+                                    </tr>
+                                    <tr data-status="Received" onclick="showToast('Order #PO-2025-003 details opened')" style="cursor: pointer;">
+                                        <td>PO-2025-003</td>
+                                        <td>OfficeMart</td>
+                                        <td>12</td>
+                                        <td>₹67,890</td>
+                                        <td>Mar 15, 2025</td>
+                                        <td><span class="stock-badge in-stock">Received</span></td>
+                                    </tr>
+                                    <tr data-status="Cancelled" onclick="showToast('Order #PO-2025-004 details opened')" style="cursor: pointer;">
+                                        <td>PO-2025-004</td>
+                                        <td>Prime Traders</td>
+                                        <td>3</td>
+                                        <td>₹12,340</td>
+                                        <td>Apr 02, 2025</td>
+                                        <td><span class="stock-badge out-of-stock">Cancelled</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warehouses Page -->
+                <div class="page" id="warehouses" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Warehouse Overview</h2>
+                        <button class="btn btn-primary" onclick="showToast('Add warehouse form opened')"><i class="fas fa-plus"></i> Add Warehouse</button>
+                    </div>
+                    
+                    <div class="kpi-grid mb-20">
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fas fa-warehouse"></i></div>
+                            <div class="kpi-info">
+                                <h3>5</h3>
+                                <p>Total Warehouses</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fas fa-coins"></i></div>
+                            <div class="kpi-info">
+                                <h3>₹28,45,630</h3>
+                                <p>Total Stock Value</p>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon orange"><i class="fas fa-chart-bar"></i></div>
+                            <div class="kpi-info">
+                                <h3>72%</h3>
+                                <p>Storage Utilization</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-20">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-th text-primary"></i> Inventory Heat Map</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
+                            <div style="background: var(--green-light); padding: 20px; text-align: center; border-radius: var(--radius-sm);"><i class="fas fa-check-circle text-green"></i><p class="text-sm mt-10">High Stock</p></div>
+                            <div style="background: var(--orange-light); padding: 20px; text-align: center; border-radius: var(--radius-sm);"><i class="fas fa-exclamation-circle text-orange"></i><p class="text-sm mt-10">Medium Stock</p></div>
+                            <div style="background: var(--red-light); padding: 20px; text-align: center; border-radius: var(--radius-sm);"><i class="fas fa-times-circle text-red"></i><p class="text-sm mt-10">Low Stock</p></div>
+                            <div style="background: var(--green-light); padding: 20px; text-align: center; border-radius: var(--radius-sm);"><i class="fas fa-check-circle text-green"></i><p class="text-sm mt-10">High Stock</p></div>
+                            <div style="background: var(--orange-light); padding: 20px; text-align: center; border-radius: var(--radius-sm);"><i class="fas fa-exclamation-circle text-orange"></i><p class="text-sm mt-10">Medium Stock</p></div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid mb-20">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-bar text-primary"></i> Stock by Warehouse</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="stockByWarehouseChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-chart-line text-primary"></i> Warehouse Performance</span>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-10"><span>Orders Processed</span><strong>1,248</strong></div>
+                                <div style="height: 8px; background: var(--grey-light); border-radius: 4px; margin-bottom: 20px;"><div style="width: 85%; height: 100%; background: var(--green); border-radius: 4px;"></div></div>
+                                <div class="flex justify-between mb-10"><span>Inventory Accuracy</span><strong>94%</strong></div>
+                                <div style="height: 8px; background: var(--grey-light); border-radius: 4px; margin-bottom: 20px;"><div style="width: 94%; height: 100%; background: var(--primary); border-radius: 4px;"></div></div>
+                                <div class="flex justify-between mb-10"><span>On-Time Delivery</span><strong>89%</strong></div>
+                                <div style="height: 8px; background: var(--grey-light); border-radius: 4px;"><div style="width: 89%; height: 100%; background: var(--purple); border-radius: 4px;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title"><i class="fas fa-list text-primary"></i> Warehouse List</span>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Warehouse</th>
+                                        <th>Location</th>
+                                        <th>Stock Value</th>
+                                        <th>Utilization</th>
+                                        <th>Capacity</th>
+                                        <th>Recent Movement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onclick="showToast('Main Warehouse details opened')" style="cursor: pointer;">
+                                        <td><strong>Main Warehouse</strong></td>
+                                        <td>Mumbai, MH</td>
+                                        <td>₹12,45,000</td>
+                                        <td>78%</td>
+                                        <td>10,000 sq.ft</td>
+                                        <td>Stock in: 50 units</td>
+                                    </tr>
+                                    <tr onclick="showToast('North Warehouse details opened')" style="cursor: pointer;">
+                                        <td><strong>North Warehouse</strong></td>
+                                        <td>Delhi, DL</td>
+                                        <td>₹8,45,000</td>
+                                        <td>65%</td>
+                                        <td>8,000 sq.ft</td>
+                                        <td>Stock out: 20 units</td>
+                                    </tr>
+                                    <tr onclick="showToast('West Warehouse details opened')" style="cursor: pointer;">
+                                        <td><strong>West Warehouse</strong></td>
+                                        <td>Ahmedabad, GJ</td>
+                                        <td>₹5,67,000</td>
+                                        <td>82%</td>
+                                        <td>6,000 sq.ft</td>
+                                        <td>Stock in: 30 units</td>
+                                    </tr>
+                                    <tr onclick="showToast('South Warehouse details opened')" style="cursor: pointer;">
+                                        <td><strong>South Warehouse</strong></td>
+                                        <td>Bengaluru, KA</td>
+                                        <td>₹3,45,000</td>
+                                        <td>58%</td>
+                                        <td>5,000 sq.ft</td>
+                                        <td>Stock out: 15 units</td>
+                                    </tr>
+                                    <tr onclick="showToast('East Warehouse details opened')" style="cursor: pointer;">
+                                        <td><strong>East Warehouse</strong></td>
+                                        <td>Kolkata, WB</td>
+                                        <td>₹2,45,000</td>
+                                        <td>45%</td>
+                                        <td>4,000 sq.ft</td>
+                                        <td>Stock in: 10 units</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Page -->
+                <div class="page" id="notifications" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Notifications</h2>
+                        <div class="flex gap-10">
+                            <button class="btn btn-primary btn-sm" onclick="markAllNotifsRead()">Mark All as Read</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-group mb-20" id="notifTabs">
+                        <button class="btn btn-primary btn-sm active" data-filter="all" onclick="filterNotifTab(this)">All</button>
+                        <button class="btn btn-outline btn-sm" data-filter="unread" onclick="filterNotifTab(this)">Unread</button>
+                        <button class="btn btn-outline btn-sm" data-filter="alert" onclick="filterNotifTab(this)">Alerts</button>
+                        <button class="btn btn-outline btn-sm" data-filter="update" onclick="filterNotifTab(this)">Updates</button>
+                    </div>
+                    
+                    <div class="card" id="notifList">
+                        <div class="notif-item flex items-start gap-20 mb-20" data-type="alert" data-status="unread" style="padding: 15px; background: var(--red-light); border-radius: var(--radius-sm); cursor: pointer; flex-wrap: wrap;" onclick="markNotifRead(this)">
+                            <i class="fas fa-exclamation-triangle text-red" style="font-size: 1.2rem; color: var(--red);"></i>
+                            <div style="flex: 1; min-width: 200px;">
+                                <strong>Low Stock Alert</strong>
+                                <p class="text-sm text-muted">Wireless Headphones stock is low. Current stock: 25 units.</p>
+                            </div>
+                            <span class="text-sm text-muted">5 min ago</span>
+                        </div>
+                        <div class="notif-item flex items-start gap-20 mb-20" data-type="update" data-status="unread" style="padding: 15px; background: var(--grey-light); border-radius: var(--radius-sm); cursor: pointer; flex-wrap: wrap;" onclick="markNotifRead(this)">
+                            <i class="fas fa-shopping-cart text-primary" style="font-size: 1.2rem; color: var(--primary);"></i>
+                            <div style="flex: 1; min-width: 200px;">
+                                <strong>New Order Received</strong>
+                                <p class="text-sm text-muted">Order #SO-1024 has been placed.</p>
+                            </div>
+                            <span class="text-sm text-muted">15 min ago</span>
+                        </div>
+                        <div class="notif-item flex items-start gap-20 mb-20" data-type="update" data-status="unread" style="padding: 15px; background: var(--grey-light); border-radius: var(--radius-sm); cursor: pointer; flex-wrap: wrap;" onclick="markNotifRead(this)">
+                            <i class="fas fa-truck text-purple" style="font-size: 1.2rem; color: var(--purple);"></i>
+                            <div style="flex: 1; min-width: 200px;">
+                                <strong>Supplier Update</strong>
+                                <p class="text-sm text-muted">TechGear Solutions updated the delivery date to Mar 20, 2025.</p>
+                            </div>
+                            <span class="text-sm text-muted">1 hour ago</span>
+                        </div>
+                        <div class="notif-item flex items-start gap-20 mb-20" data-type="alert" data-status="read" style="padding: 15px; background: var(--grey-light); border-radius: var(--radius-sm); cursor: pointer; flex-wrap: wrap;" onclick="markNotifRead(this)">
+                            <i class="fas fa-robot text-green" style="font-size: 1.2rem; color: var(--green);"></i>
+                            <div style="flex: 1; min-width: 200px;">
+                                <strong>AI Recommendation</strong>
+                                <p class="text-sm text-muted">AI recommends reordering 8 items based on forecast.</p>
+                            </div>
+                            <span class="text-sm text-muted">3 hours ago</span>
+                        </div>
+                        <div class="notif-item flex items-start gap-20" data-type="update" data-status="read" style="padding: 15px; background: var(--grey-light); border-radius: var(--radius-sm); cursor: pointer; flex-wrap: wrap;" onclick="markNotifRead(this)">
+                            <i class="fas fa-check-circle text-green" style="font-size: 1.2rem; color: var(--green);"></i>
+                            <div style="flex: 1; min-width: 200px;">
+                                <strong>Payment Received</strong>
+                                <p class="text-sm text-muted">Payment of ₹24,560 received from Global Supplies Inc.</p>
+                            </div>
+                            <span class="text-sm text-muted">Yesterday</span>
+                        </div>
+                        <p class="empty-state hidden" id="notifEmptyState"><i class="fas fa-inbox"></i>No notifications match this filter.</p>
+                    </div>
+                </div>
+
+                <!-- Profile & Settings Page -->
+                <div class="page" id="profile" style="display: none;">
+                    <div class="flex justify-between items-center mb-20" style="flex-wrap: wrap; gap: 10px;">
+                        <h2>Profile & Settings</h2>
+                        <button class="btn btn-red" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="card text-center">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--purple)); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px;">
+                                RS
+                            </div>
+                            <h3>Gananath Naik</h3>
+                            <p class="text-muted">Admin</p>
+                            <div class="text-sm mt-20">
+                                <p><strong>Email:</strong> gananath@stocksync.in</p>
+                                <p><strong>Business:</strong> StockSync Enterprises</p>
+                                <p><strong>Business ID:</strong> SS-2024-001</p>
+                                <p><strong>GST Number:</strong> 27ABCDE1234F1Z5</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fas fa-cog text-primary"></i> Settings</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-20" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Dark Mode</strong>
+                                        <p class="text-sm text-muted">Toggle dark theme</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between mb-20" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Notifications</strong>
+                                        <p class="text-sm text-muted">Enable push notifications</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between mb-20" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Language</strong>
+                                        <p class="text-sm text-muted">Select preferred language</p>
+                                    </div>
+                                    <select class="form-input" style="max-width: 120px;">
+                                        <option>English</option>
+                                        <option>Hindi</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center justify-between mb-20" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Security</strong>
+                                        <p class="text-sm text-muted">Two-factor authentication</p>
+                                    </div>
+                                    <button class="btn btn-secondary btn-sm" onclick="showToast('Security settings opened')">Configure</button>
+                                </div>
+                                <div class="flex items-center justify-between mb-20" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Backup & Sync</strong>
+                                        <p class="text-sm text-muted">Data backup settings</p>
+                                    </div>
+                                    <button class="btn btn-secondary btn-sm" onclick="showToast('Backup & sync settings opened')">Manage</button>
+                                </div>
+                                <div class="flex items-center justify-between mb-20" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Help Centre</strong>
+                                        <p class="text-sm text-muted">FAQs and support</p>
+                                    </div>
+                                    <button class="btn btn-secondary btn-sm" onclick="showToast('Help centre opened')">Open</button>
+                                </div>
+                                <div class="flex items-center justify-between" style="flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <strong>Privacy Policy</strong>
+                                        <p class="text-sm text-muted">Read our privacy policy</p>
+                                    </div>
+                                    <button class="btn btn-secondary btn-sm" onclick="showToast('Privacy policy opened')">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="#" data-page="dashboard" class="mobile-nav-item active">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" data-page="inventory" class="mobile-nav-item">
+                <i class="fas fa-boxes"></i>
+                <span>Inventory</span>
+            </a>
+            <a href="#" data-page="barcode" class="mobile-nav-item">
+                <i class="fas fa-barcode"></i>
+                <span>Scan</span>
+            </a>
+            <a href="#" data-page="analytics" class="mobile-nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="mobile-nav-item" id="mobileMoreBtn" onclick="event.preventDefault(); toggleMobileMore();">
+                <i class="fas fa-ellipsis-h"></i>
+                <span>More</span>
+            </a>
+            <a href="#" data-page="profile" class="mobile-nav-item">
+                <i class="fas fa-user-cog"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
+
+        <!-- "More" sheet: gives mobile users access to every section -->
+        <div class="mobile-more-overlay" id="mobileMoreOverlay" onclick="if(event.target===this) toggleMobileMore(false);">
+            <div class="mobile-more-sheet">
+                <div class="mobile-more-handle"></div>
+                <div class="mobile-more-title">All Sections</div>
+                <div class="mobile-more-grid">
+                    <a href="#" data-page="dashboard" class="mobile-more-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                    <a href="#" data-page="inventory" class="mobile-more-item"><i class="fas fa-boxes"></i><span>Inventory</span></a>
+                    <a href="#" data-page="barcode" class="mobile-more-item"><i class="fas fa-barcode"></i><span>Barcode Scanner</span></a>
+                    <a href="#" data-page="analytics" class="mobile-more-item"><i class="fas fa-chart-line"></i><span>Sales Analytics</span></a>
+                    <a href="#" data-page="forecast" class="mobile-more-item"><i class="fas fa-robot"></i><span>AI Forecast</span></a>
+                    <a href="#" data-page="reports" class="mobile-more-item"><i class="fas fa-file-alt"></i><span>Reports</span></a>
+                    <a href="#" data-page="suppliers" class="mobile-more-item"><i class="fas fa-truck"></i><span>Suppliers</span></a>
+                    <a href="#" data-page="purchase-orders" class="mobile-more-item"><i class="fas fa-clipboard-list"></i><span>Purchase Orders</span></a>
+                    <a href="#" data-page="warehouses" class="mobile-more-item"><i class="fas fa-warehouse"></i><span>Warehouses</span></a>
+                    <a href="#" data-page="notifications" class="mobile-more-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+                    <a href="#" data-page="profile" class="mobile-more-item"><i class="fas fa-user-cog"></i><span>Profile & Settings</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal-overlay" id="deleteModal">
+            <div class="modal">
+                <div class="modal-title">Delete Product</div>
+                <p>Are you sure you want to delete this product? This action cannot be undone.</p>
+                <div class="flex gap-20 mt-20" style="justify-content: flex-end; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" onclick="hideDeleteModal()">Cancel</button>
+                    <button class="btn btn-red" onclick="confirmDelete()"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Auth guard: this page requires a signed-in session ----
+        if (localStorage.getItem('stocksync_authed') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Global state
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+        let charts = {};
+
+        // Initialize
+        function init() {
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                const darkModeToggle = document.getElementById('darkModeToggle');
+                if (darkModeToggle) darkModeToggle.checked = true;
+                syncHeaderDarkIcon();
+            }
+            greetUser();
+            initializeCharts();
+            setupEventListeners();
+            updateNavigation('dashboard');
+            showPage('dashboard');
+        }
+
+        // Show the signed-in user's name
+        function greetUser() {
+            const name = localStorage.getItem('stocksync_user_name');
+            if (!name) return;
+            const first = name.split(' ')[0];
+            const initials = name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+            document.querySelectorAll('.user-name').forEach(el => el.textContent = name);
+            document.querySelectorAll('.user-avatar').forEach(el => el.textContent = initials);
+            const welcome = document.querySelector('#dashboard h2');
+            if (welcome) welcome.textContent = `Welcome back, ${first}! 👋`;
+        }
+
+        function syncHeaderDarkIcon() {
+            const icon = document.getElementById('headerDarkIcon');
+            if (icon) icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        
+        // Navigation
+        function navigateTo(page) {
+            updateNavigation(page);
+            showPage(page);
+            window.scrollTo(0, 0);
+        }
+        
+        function updateNavigation(page) {
+            const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-item[data-page]');
+            const morePages = ['forecast', 'reports', 'suppliers', 'purchase-orders', 'warehouses', 'notifications'];
+
+            sidebarLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === page);
+            });
+            
+            mobileLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === page);
+            });
+
+            const moreBtn = document.getElementById('mobileMoreBtn');
+            if (moreBtn) moreBtn.classList.toggle('active', morePages.includes(page));
+
+            document.querySelectorAll('.mobile-more-item').forEach(link => {
+                link.classList.toggle('active', link.dataset.page === page);
+            });
+        }
+        
+        // Mobile "More" sheet
+        function toggleMobileMore(force) {
+            const overlay = document.getElementById('mobileMoreOverlay');
+            const show = typeof force === 'boolean' ? force : !overlay.classList.contains('active');
+            overlay.classList.toggle('active', show);
+        }
+        
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.style.display = 'block';
+            }
+            
+            setTimeout(() => {
+                if (pageId === 'dashboard') initializeDashboardCharts();
+                if (pageId === 'analytics') initializeAnalyticsCharts();
+                if (pageId === 'forecast') initializeForecastCharts();
+                if (pageId === 'product-details') initializeProductDetailsCharts();
+                if (pageId === 'reports') initializeReportCharts();
+                if (pageId === 'warehouses') initializeWarehouseCharts();
+            }, 100);
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigateTo(link.dataset.page);
+                });
+            });
+            
+            document.querySelectorAll('.mobile-nav-item[data-page]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigateTo(link.dataset.page);
+                });
+            });
+
+            document.querySelectorAll('.mobile-more-item').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleMobileMore(false);
+                    navigateTo(link.dataset.page);
+                });
+            });
+            
+            document.getElementById('globalSearch').addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query.length > 2) {
+                    showToast(`Searching for "${query}"...`);
+                }
+            });
+            
+            document.getElementById('inventorySearch').addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('#productTable tbody tr');
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query) ? '' : 'none';
+                });
+            });
+            
+            document.getElementById('categoryFilter').addEventListener('change', (e) => {
+                const category = e.target.value;
+                const rows = document.querySelectorAll('#productTable tbody tr');
+                rows.forEach(row => {
+                    const rowCategory = row.cells[2].textContent;
+                    if (category === '' || rowCategory === category) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            
+            document.getElementById('sortBy').addEventListener('change', (e) => {
+                const sortBy = e.target.value;
+                const tbody = document.querySelector('#productTable tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                
+                rows.sort((a, b) => {
+                    if (sortBy === 'name') {
+                        return a.cells[0].textContent.localeCompare(b.cells[0].textContent);
+                    } else if (sortBy === 'quantity') {
+                        return parseInt(a.cells[3].textContent) - parseInt(b.cells[3].textContent);
+                    } else if (sortBy === 'price') {
+                        return a.cells[0].textContent.localeCompare(b.cells[0].textContent);
+                    }
+                    return 0;
+                });
+                
+                rows.forEach(row => tbody.appendChild(row));
+            });
+            
+            document.getElementById('periodSelector').addEventListener('change', () => {
+                showToast('Analytics period updated');
+                initializeAnalyticsCharts();
+            });
+
+            const analyticsCatFilter = document.getElementById('analyticsCategoryFilter');
+            if (analyticsCatFilter) {
+                analyticsCatFilter.addEventListener('change', (e) => {
+                    const cat = e.target.value;
+                    showToast(cat === 'all' ? 'Showing all categories' : `Filtered by ${cat}`);
+                    initializeAnalyticsCharts(cat);
+                });
+            }
+
+            updateNotifBadgeCount();
+        }
+        
+        // Initialize charts
+        function initializeCharts() {
+            Chart.defaults.color = '#6b7280';
+            Chart.defaults.borderColor = '#e5e7eb';
+            Chart.defaults.font.family = 'Inter, sans-serif';
+        }
+        
+        function initializeDashboardCharts() {
+            const salesCtx = document.getElementById('salesOverviewChart').getContext('2d');
+            if (charts.salesOverview) charts.salesOverview.destroy();
+            charts.salesOverview = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [45000, 52000, 38000, 61000, 55000, 72000, 68000],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Orders',
+                        data: [25, 32, 21, 38, 30, 42, 40],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'top' }
+                    }
+                }
+            });
+            
+            const topSellingCtx = document.getElementById('topSellingChart').getContext('2d');
+            if (charts.topSelling) charts.topSelling.destroy();
+            charts.topSelling = new Chart(topSellingCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Electronics', 'Accessories', 'Office', 'Home'],
+                    datasets: [{
+                        data: [40, 30, 20, 10],
+                        backgroundColor: ['#2563eb', '#10b981', '#8b5cf6', '#f59e0b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' }
+                    }
+                }
+            });
+        }
+        
+        function initializeAnalyticsCharts(cat) {
+            cat = cat || (document.getElementById('analyticsCategoryFilter') ? document.getElementById('analyticsCategoryFilter').value : 'all');
+            const catShare = { all: 1, 'Electronics': 0.42, 'Office Supplies': 0.18, 'Home & Kitchen': 0.16, 'Stationery': 0.12, 'Accessories': 0.12 };
+            const mult = catShare[cat] !== undefined ? catShare[cat] : 1;
+            
+            const revenueCtx = document.getElementById('revenueOverviewChart').getContext('2d');
+            if (charts.revenueOverview) charts.revenueOverview.destroy();
+            charts.revenueOverview = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: cat === 'all' ? 'Revenue' : `Revenue — ${cat}`,
+                        data: [150000, 180000, 220000, 200000, 250000, 280000, 320000, 300000, 350000, 380000, 420000, 450000].map(v => Math.round(v * mult)),
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'top' }
+                    }
+                }
+            });
+            
+            const categoryCtx = document.getElementById('salesByCategoryChart').getContext('2d');
+            if (charts.salesByCategory) charts.salesByCategory.destroy();
+            charts.salesByCategory = new Chart(categoryCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Electronics', 'Accessories', 'Office', 'Home'],
+                    datasets: [{
+                        data: [35, 28, 22, 15],
+                        backgroundColor: ['#2563eb', '#10b981', '#8b5cf6', '#f59e0b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' }
+                    }
+                }
+            });
+            
+            const monthCtx = document.getElementById('salesByMonthChart').getContext('2d');
+            if (charts.salesByMonth) charts.salesByMonth.destroy();
+            charts.salesByMonth = new Chart(monthCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [120, 150, 180, 160, 200, 220, 250, 240, 280, 300, 320, 350],
+                        backgroundColor: '#10b981',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+            
+            const customerCtx = document.getElementById('customerGrowthChart').getContext('2d');
+            if (charts.customerGrowth) charts.customerGrowth.destroy();
+            charts.customerGrowth = new Chart(customerCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Customers',
+                        data: [300, 350, 420, 480, 550, 600, 650, 700, 750, 800, 850, 892],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        function initializeForecastCharts() {
+            const forecastCtx = document.getElementById('aiForecastChart').getContext('2d');
+            if (charts.aiForecast) charts.aiForecast.destroy();
+            
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const historical = [800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350];
+            const forecast = [null, null, null, null, null, null, null, null, null, 1400, 1500, 1650];
+            const upperBound = [null, null, null, null, null, null, null, null, null, 1500, 1650, 1800];
+            const lowerBound = [null, null, null, null, null, null, null, null, null, 1300, 1350, 1500];
+            
+            charts.aiForecast = new Chart(forecastCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Historical Sales',
+                            data: historical,
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'AI Forecast',
+                            data: forecast,
+                            borderColor: '#10b981',
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            fill: false
+                        },
+                        {
+                            label: 'Upper Bound',
+                            data: upperBound,
+                            borderColor: '#f59e0b',
+                            borderDash: [2, 2],
+                            tension: 0.4,
+                            fill: false
+                        },
+                        {
+                            label: 'Lower Bound',
+                            data: lowerBound,
+                            borderColor: '#8b5cf6',
+                            borderDash: [2, 2],
+                            tension: 0.4,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'top' }
+                    }
+                }
+            });
+            
+            const seasonalCtx = document.getElementById('seasonalForecastChart').getContext('2d');
+            if (charts.seasonalForecast) charts.seasonalForecast.destroy();
+            charts.seasonalForecast = new Chart(seasonalCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                    datasets: [{
+                        label: 'Forecast',
+                        data: [1400, 1500, 1650, 1800, 1700, 1550],
+                        backgroundColor: '#10b981',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        function initializeProductDetailsCharts() {
+            const productSalesCtx = document.getElementById('productSalesChart').getContext('2d');
+            if (charts.productSales) charts.productSales.destroy();
+            charts.productSales = new Chart(productSalesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Units Sold',
+                        data: [20, 25, 30, 28, 35, 40],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        function initializeReportCharts() {
+            const chartConfigs = [
+                { id: 'inventoryReportChart', color: '#2563eb' },
+                { id: 'salesReportChart', color: '#10b981' },
+                { id: 'purchaseReportChart', color: '#f59e0b' },
+                { id: 'profitLossChart', color: '#8b5cf6' },
+                { id: 'gstReportChart', color: '#ef4444' }
+            ];
+            
+            chartConfigs.forEach(config => {
+                const ctx = document.getElementById(config.id).getContext('2d');
+                if (charts[config.id]) charts[config.id].destroy();
+                charts[config.id] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            data: [10, 15, 12, 18, 20, 16],
+                            borderColor: config.color,
+                            backgroundColor: `${config.color}20`,
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false }
+                        }
+                    }
+                });
+            });
+        }
+        
+        function initializeWarehouseCharts() {
+            const stockByWarehouseCtx = document.getElementById('stockByWarehouseChart').getContext('2d');
+            if (charts.stockByWarehouse) charts.stockByWarehouse.destroy();
+            charts.stockByWarehouse = new Chart(stockByWarehouseCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Main', 'North', 'West', 'South', 'East'],
+                    datasets: [{
+                        label: 'Stock Value (₹)',
+                        data: [1245000, 845000, 567000, 345000, 245000],
+                        backgroundColor: '#2563eb',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        // Add product
+        function handleAddProduct(event) {
+            event.preventDefault();
+            const name = document.getElementById('productName').value;
+            const sku = document.getElementById('productSKU').value;
+            const category = document.getElementById('productCategory').value;
+            const supplier = document.getElementById('productSupplier').value;
+            const costPrice = document.getElementById('costPrice').value;
+            const sellingPrice = document.getElementById('sellingPrice').value;
+            const quantity = document.getElementById('productQuantity').value;
+            const warehouse = document.getElementById('productWarehouse').value;
+            const barcode = document.getElementById('productBarcode').value;
+            
+            if (!name || !sku || !category || !supplier || !costPrice || !sellingPrice || !quantity || !warehouse) {
+                showToast('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            const products = JSON.parse(localStorage.getItem('stocksync_products') || '[]');
+            products.push({
+                name, sku, category, supplier, costPrice, sellingPrice, quantity, warehouse, barcode
+            });
+            localStorage.setItem('stocksync_products', JSON.stringify(products));
+            
+            showToast(`Product "${name}" added successfully!`);
+            event.target.reset();
+        }
+        
+        function handleSaveAndAddAnother() {
+            handleAddProduct({ preventDefault: () => {} });
+        }
+        
+        // Barcode scanner
+        function simulateScan() {
+            const scanResult = document.getElementById('scanResult');
+            scanResult.style.display = 'block';
+            showToast('Barcode scanned successfully!');
+        }
+        
+        // Delete modal
+        function showDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+        
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+        
+        function confirmDelete() {
+            hideDeleteModal();
+            showToast('Product deleted successfully!');
+            setTimeout(() => navigateTo('inventory'), 500);
+        }
+
+        // Purchase Orders — status tab filtering
+        function filterPOTab(btn) {
+            document.querySelectorAll('#poTabs .btn').forEach(b => {
+                b.classList.remove('active', 'btn-primary');
+                b.classList.add('btn-outline');
+            });
+            btn.classList.remove('btn-outline');
+            btn.classList.add('active', 'btn-primary');
+
+            const status = btn.dataset.status;
+            const rows = document.querySelectorAll('#poTable tbody tr');
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const match = status === 'All' || row.dataset.status === status;
+                row.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+            showToast(`Showing ${status === 'All' ? 'all' : status.toLowerCase()} orders (${visibleCount})`);
+        }
+
+        // Notifications — filter tabs + read/unread state
+        function filterNotifTab(btn) {
+            document.querySelectorAll('#notifTabs .btn').forEach(b => {
+                b.classList.remove('active', 'btn-primary');
+                b.classList.add('btn-outline');
+            });
+            btn.classList.remove('btn-outline');
+            btn.classList.add('active', 'btn-primary');
+            applyNotifFilter(btn.dataset.filter);
+        }
+
+        function applyNotifFilter(filter) {
+            const items = document.querySelectorAll('.notif-item');
+            let visibleCount = 0;
+            items.forEach(item => {
+                let match = true;
+                if (filter === 'unread') match = item.dataset.status === 'unread';
+                else if (filter === 'alert' || filter === 'update') match = item.dataset.type === filter;
+                item.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+            const empty = document.getElementById('notifEmptyState');
+            if (empty) empty.classList.toggle('hidden', visibleCount > 0);
+        }
+
+        function markNotifRead(el) {
+            if (el.dataset.status === 'unread') {
+                el.dataset.status = 'read';
+                el.style.background = 'var(--grey-light)';
+                updateNotifBadgeCount();
+            }
+            showToast('Notification marked as read');
+        }
+
+        function markAllNotifsRead() {
+            document.querySelectorAll('.notif-item').forEach(el => {
+                el.dataset.status = 'read';
+                el.style.background = 'var(--grey-light)';
+            });
+            updateNotifBadgeCount();
+            showToast('All notifications marked as read');
+        }
+
+        function updateNotifBadgeCount() {
+            const unread = document.querySelectorAll('.notif-item[data-status="unread"]').length;
+            const badge = document.querySelector('.notification-badge');
+            if (!badge) return;
+            badge.textContent = unread;
+            badge.style.display = unread > 0 ? 'flex' : 'none';
+        }
+
+        function refreshForecast(btn) {
+            const icon = btn.querySelector('i');
+            icon.classList.add('fa-spin');
+            btn.disabled = true;
+            setTimeout(() => {
+                initializeForecastCharts();
+                icon.classList.remove('fa-spin');
+                btn.disabled = false;
+                showToast('AI forecast refreshed with the latest sales data');
+            }, 700);
+        }
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            const settingsCheckbox = document.getElementById('darkModeToggle');
+            if (settingsCheckbox) settingsCheckbox.checked = isDarkMode;
+            syncHeaderDarkIcon();
+            Chart.defaults.color = isDarkMode ? '#d1d5db' : '#6b7280';
+            Chart.defaults.borderColor = isDarkMode ? '#374151' : '#e5e7eb';
+            const visiblePage = document.querySelector('.page[style*="display: block"], .page.active');
+            if (visiblePage) {
+                const id = visiblePage.id;
+                if (id === 'dashboard') initializeDashboardCharts();
+                if (id === 'analytics') initializeAnalyticsCharts();
+                if (id === 'forecast') initializeForecastCharts();
+                if (id === 'product-details') initializeProductDetailsCharts();
+                if (id === 'reports') initializeReportCharts();
+                if (id === 'warehouses') initializeWarehouseCharts();
+            }
+            showToast(isDarkMode ? 'Dark mode enabled' : 'Dark mode disabled');
+        }
+        
+        // Logout
+        function handleLogout() {
+            showToast('Logging out...');
+            localStorage.removeItem('stocksync_authed');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 800);
+        }
+        
+        // Toast notifications
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle text-green' : 'fa-exclamation-circle text-red'}" 
+                   style="color: ${type === 'success' ? 'var(--green)' : 'var(--red)'};"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html
