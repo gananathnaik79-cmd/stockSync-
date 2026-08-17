@@ -3,35 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+
     <title>Sign In — StockSync</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+
     <style>
+
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
             --primary-light: #dbeafe;
+
             --green: #10b981;
             --green-light: #d1fae5;
+
             --purple: #8b5cf6;
             --purple-light: #ede9fe;
+
             --orange: #f59e0b;
             --orange-light: #fef3c7;
+
             --red: #ef4444;
             --red-light: #fee2e2;
+
             --grey-bg: #f9fafb;
             --grey-light: #f3f4f6;
             --grey-border: #e5e7eb;
+
             --text-primary: #111827;
             --text-secondary: #6b7280;
             --text-muted: #9ca3af;
+
             --white: #ffffff;
+
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+            --shadow:
+                0 1px 3px rgba(0, 0, 0, 0.1),
+                0 1px 2px rgba(0, 0, 0, 0.06);
+
+            --shadow-md:
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+            --shadow-lg:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
             --radius: 12px;
             --radius-sm: 8px;
             --transition: all 0.3s ease;
@@ -50,13 +81,21 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family:
+                'Inter',
+                -apple-system,
+                BlinkMacSystemFont,
+                'Segoe UI',
+                sans-serif;
+
             background: var(--grey-bg);
             color: var(--text-primary);
             line-height: 1.6;
+
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+
             width: 100%;
             min-height: 100vh;
         }
@@ -76,36 +115,1471 @@
         }
 
         .auth-side {
-            background: linear-gradient(155deg, var(--primary) 0%, var(--primary-dark) 55%, #143089 100%);
+            background:
+                linear-gradient(
+                    155deg,
+                    var(--primary) 0%,
+                    var(--primary-dark) 55%,
+                    #143089 100%
+                );
+
             color: #fff;
             padding: 56px;
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
             position: relative;
             overflow: hidden;
         }
 
         .auth-side::before {
             content: "";
+
             position: absolute;
             top: -18%;
             right: -12%;
+
             width: 460px;
             height: 460px;
-            background: radial-gradient(circle, rgba(16, 185, 129, .55), transparent 65%);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(16, 185, 129, .55),
+                    transparent 65%
+                );
+
             filter: blur(10px);
         }
 
         .auth-side::after {
             content: "";
+
             position: absolute;
             bottom: -20%;
             left: -15%;
+
             width: 420px;
             height: 420px;
-            background: radial-gradient(circle, rgba(139, 92, 246, .45), transparent 65%);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(139, 92, 246, .45),
+                    transparent 65%
+                );
+
             filter: blur(10px);
+        }
+
+        .auth-side-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-side-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-weight: 800;
+            font-size: 1.4rem;
+
+            margin-bottom: 56px;
+        }
+
+        .auth-logo-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .auth-headline {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+
+            max-width: 420px;
+            margin-bottom: 14px;
+        }
+
+        .auth-subline {
+            font-size: 0.95rem;
+            opacity: .88;
+
+            max-width: 380px;
+            line-height: 1.7;
+        }
+
+        .auth-stat-row {
+            display: flex;
+            gap: 30px;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-stat-row div b {
+            display: block;
+
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .auth-stat-row div span {
+            font-size: 0.75rem;
+            opacity: .78;
+        }
+
+        .auth-form-wrap {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            padding: 40px 24px;
+
+            overflow-y: auto;
+        }
+
+        .auth-form-card {
+            width: 100%;
+            max-width: 420px;
+
+            margin: auto 0;
+        }
+
+        /* Top Center Logo */
+
+        .auth-logo-top {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-logo-top img {
+            width: 200px;
+            height: 200px;
+
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        .auth-logo-top .logo-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+
+            margin-top: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--green)
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-form-card h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+
+            margin-bottom: 6px;
+
+            text-align: center;
+        }
+
+        .auth-form-card p.lead {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+
+            margin-bottom: 26px;
+
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+
+            padding: 10px 14px;
+
+            border: 1px solid var(--grey-border);
+            border-radius: var(--radius-sm);
+
+            font-size: 0.9rem;
+            outline: none;
+
+            transition: var(--transition);
+
+            background: var(--white);
+            color: var(--text-primary);
+
+            min-width: 0;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px var(--primary-light);
+        }
+
+        .input-icon-wrap {
+            position: relative;
+        }
+
+        .input-icon-wrap i.icon-left {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--text-muted);
+            font-size: 0.9rem;
+
+            pointer-events: none;
+        }
+
+        .input-icon-wrap input.form-input {
+            padding-left: 38px;
+        }
+
+        .input-icon-wrap i.icon-toggle-pass {
+            position: absolute;
+
+            right: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--text-muted);
+            font-size: 0.9rem;
+
+            cursor: pointer;
+        }
+
+        .field-error {
+            color: var(--red);
+
+            font-size: 0.78rem;
+
+            margin-top: 5px;
+
+            display: none;
+        }
+
+        .form-group.invalid .form-input {
+            border-color: var(--red);
+        }
+
+        .form-group.invalid .field-error {
+            display: block;
+        }
+
+        .auth-row-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin: 2px 0 20px;
+
+            font-size: 0.85rem;
+        }
+
+        .auth-check {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .auth-link {
+            color: var(--primary);
+
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            color: var(--text-muted);
+            font-size: 0.78rem;
+
+            margin: 20px 0;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: var(--grey-border);
+        }
+
+        .auth-footer-note {
+            text-align: center;
+
+            margin-top: 22px;
+
+            font-size: 0.85rem;
+
+            color: var(--text-secondary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 20px;
+
+            border-radius: var(--radius-sm);
+
+            font-weight: 500;
+            font-size: 0.9rem;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+            border: 1px solid transparent;
+
+            text-decoration: none;
+
+            white-space: nowrap;
+
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+
+            transform: translateY(-1px);
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            border-color: var(--grey-border);
+
+            background: transparent;
+
+            color: var(--text-secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--grey-light);
+            color: var(--text-primary);
+        }
+
+        .btn-lg {
+            padding: 12px 24px;
+            font-size: 1rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Demo notice */
+
+        .demo-notice {
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            color: #1e40af;
+
+            padding: 12px 14px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .demo-notice strong {
+            font-weight: 700;
+        }
+
+        .toast {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            background: var(--white);
+
+            border-radius: var(--radius-sm);
+
+            box-shadow: var(--shadow-lg);
+
+            padding: 15px 20px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            z-index: 3000;
+
+            animation: slideIn 0.3s ease;
+
+            border-left: 4px solid var(--green);
+
+            max-width: 90vw;
+        }
+
+        @keyframes slideIn {
+
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 900px) {
+
+            .auth-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-side {
+                display: none;
+            }
+
+            .auth-form-wrap {
+                padding: 20px 16px;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .auth-logo-top img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .auth-form-card {
+                padding: 0 10px;
+            }
+
+            .form-input {
+                font-size: 16px;
+            }
+
+            .toast {
+                right: 10px;
+                left: 10px;
+
+                max-width: none;
+
+                top: 10px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-shell">
+
+        <!-- LEFT: BRAND PANEL -->
+
+        <section class="auth-side">
+
+            <div class="auth-side-content">
+
+                <div class="auth-side-brand">
+
+                    <img
+                        src="assets/logo.svg"
+                        alt="StockSync logo"
+                        class="auth-logo-img"
+                    >
+
+                    StockSync
+
+                </div>
+
+                <div
+                    class="auth-headline"
+                    id="authHeadline"
+                >
+                    Inventory that keeps itself in sync.
+                </div>
+
+                <div
+                    class="auth-subline"
+                    id="authSubline"
+                >
+                    Track stock, forecast demand with AI,
+                    and manage every warehouse from a single,
+                    modern dashboard.
+                </div>
+
+            </div>
+
+            <div class="auth-stat-row">
+
+                <div>
+                    <b>1,248</b>
+                    <span>Products tracked</span>
+                </div>
+
+                <div>
+                    <b>92.4%</b>
+                    <span>Forecast accuracy</span>
+                </div>
+
+                <div>
+                    <b>5</b>
+                    <span>Warehouses live</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT: FORMS -->
+
+        <section class="auth-form-wrap">
+
+            <div class="auth-form-card">
+
+                <!-- TOP CENTER LOGO -->
+
+                <div class="auth-logo-top">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="StockSync logo"
+                    >
+
+                </div>
+
+
+                <!-- LOGIN -->
+
+                <div id="loginPanel">
+
+                    <h1>Welcome back</h1>
+
+                    <p class="lead">
+                        Sign in to your StockSync demo account.
+                    </p>
+
+
+                    <!-- DEMO NOTICE -->
+
+                    <div class="demo-notice">
+
+                        <strong>Demo Mode:</strong>
+                        This is a front-end demonstration.
+                        No real password or payment information
+                        is collected.
+
+                    </div>
+
+
+                    <form
+                        id="loginForm"
+                        novalidate
+                    >
+
+                        <!-- EMAIL -->
+
+                        <div
+                            class="form-group"
+                            id="loginEmailGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="loginEmail"
+                            >
+                                Email address
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-envelope icon-left"></i>
+
+                                <input
+                                    type="email"
+                                    class="form-input"
+                                    id="loginEmail"
+                                    placeholder="you@company.com"
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+                            <div class="field-error">
+                                Please enter a valid email address.
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div
+                            class="form-group"
+                            id="loginPasswordGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="loginPassword"
+                            >
+                                Password
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-lock icon-left"></i>
+
+                                <input
+                                    type="password"
+                                    class="form-input"
+                                    id="loginPassword"
+                                    placeholder="Enter any demo password"
+                                    autocomplete="current-password"
+                                >
+
+                                <i
+                                    class="fas fa-eye icon-toggle-pass"
+                                    onclick="togglePasswordField('loginPassword', this)"
+                                ></i>
+
+                            </div>
+
+                            <div class="field-error">
+                                Password must be at least 6 characters.
+                            </div>
+
+                        </div>
+
+
+                        <!-- REMEMBER / FORGOT -->
+
+                        <div class="auth-row-between">
+
+                            <label class="auth-check">
+
+                                <input
+                                    type="checkbox"
+                                    checked
+                                >
+
+                                Remember me
+
+                            </label>
+
+
+                            <a
+                                href="#"
+                                class="auth-link"
+                                onclick="event.preventDefault(); showToast('Password reset is available in the full version.')"
+                            >
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg w-full"
+                            style="justify-content:center;"
+                        >
+                            Sign In
+                        </button>
+
+                    </form>
+
+
+                    <!-- SIGN UP LINK -->
+
+                    <div class="auth-footer-note">
+
+                        Don't have an account?
+
+                        <a
+                            href="#"
+                            class="auth-link"
+                            onclick="event.preventDefault(); showAuthPanel('signup')"
+                        >
+                            Sign up
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SIGN UP -->
+
+                <div
+                    id="signupPanel"
+                    class="hidden"
+                >
+
+                    <h1>Create your account</h1>
+
+                    <p class="lead">
+                        Start your free StockSync workspace today.
+                    </p>
+
+
+                    <form
+                        id="signupForm"
+                        novalidate
+                    >
+
+                        <!-- NAME -->
+
+                        <div
+                            class="form-group"
+                            id="suNameGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="suName"
+                            >
+                                Full Name
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-user icon-left"></i>
+
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    id="suName"
+                                    placeholder="Enter your name"
+                                    autocomplete="name"
+                                >
+
+                            </div>
+
+                            <div class="field-error">
+                                Please enter your full name.
+                            </div>
+
+                        </div>
+
+
+                        <!-- BUSINESS -->
+
+                        <div
+                            class="form-group"
+                            id="suBusinessGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="suBusiness"
+                            >
+                                Business Name
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-briefcase icon-left"></i>
+
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    id="suBusiness"
+                                    placeholder="StockSync Enterprises"
+                                >
+
+                            </div>
+
+                            <div class="field-error">
+                                Please enter your business name.
+                            </div>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div
+                            class="form-group"
+                            id="suEmailGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="suEmail"
+                            >
+                                Email
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-envelope icon-left"></i>
+
+                                <input
+                                    type="email"
+                                    class="form-input"
+                                    id="suEmail"
+                                    placeholder="you@company.com"
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+                            <div class="field-error">
+                                Please enter a valid email address.
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div
+                            class="form-group"
+                            id="suPasswordGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="suPassword"
+                            >
+                                Password
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-lock icon-left"></i>
+
+                                <input
+                                    type="password"
+                                    class="form-input"
+                                    id="suPassword"
+                                    placeholder="Minimum 6 characters"
+                                    autocomplete="new-password"
+                                >
+
+                                <i
+                                    class="fas fa-eye icon-toggle-pass"
+                                    onclick="togglePasswordField('suPassword', this)"
+                                ></i>
+
+                            </div>
+
+                            <div class="field-error">
+                                Password must be at least 6 characters.
+                            </div>
+
+                        </div>
+
+
+                        <!-- CONFIRM PASSWORD -->
+
+                        <div
+                            class="form-group"
+                            id="suConfirmGroup"
+                        >
+
+                            <label
+                                class="form-label"
+                                for="suConfirm"
+                            >
+                                Confirm Password
+                            </label>
+
+                            <div class="input-icon-wrap">
+
+                                <i class="fas fa-lock icon-left"></i>
+
+                                <input
+                                    type="password"
+                                    class="form-input"
+                                    id="suConfirm"
+                                    placeholder="Re-enter password"
+                                    autocomplete="new-password"
+                                >
+
+                                <i
+                                    class="fas fa-eye icon-toggle-pass"
+                                    onclick="togglePasswordField('suConfirm', this)"
+                                ></i>
+
+                            </div>
+
+                            <div class="field-error">
+                                Passwords do not match.
+                            </div>
+
+                        </div>
+
+
+                        <!-- TERMS -->
+
+                        <div
+                            class="form-group"
+                            id="suTermsGroup"
+                            style="margin-bottom:8px;"
+                        >
+
+                            <label class="auth-check">
+
+                                <input
+                                    type="checkbox"
+                                    id="suTerms"
+                                >
+
+                                I agree to the
+
+                                <a
+                                    href="#"
+                                    class="auth-link"
+                                    onclick="event.preventDefault(); showToast('Terms & Privacy Policy would open here')"
+                                >
+                                    Terms &amp; Privacy Policy
+                                </a>
+
+                            </label>
+
+                            <div class="field-error">
+                                Please accept the Terms &amp; Privacy Policy.
+                            </div>
+
+                        </div>
+
+
+                        <!-- CREATE ACCOUNT -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-lg w-full"
+                            style="justify-content:center;"
+                        >
+                            Create Account
+                        </button>
+
+                    </form>
+
+
+                    <!-- LOGIN LINK -->
+
+                    <div class="auth-footer-note">
+
+                        Already have an account?
+
+                        <a
+                            href="#"
+                            class="auth-link"
+                            onclick="event.preventDefault(); showAuthPanel('login')"
+                        >
+                            Login
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script>
+
+        /*
+         * StockSync Demo Authentication
+         *
+         * IMPORTANT:
+         * This is front-end demo authentication only.
+         * No real password is stored in this file.
+         */
+
+        // If a demo session already exists,
+        // skip straight to the application.
+
+        if (
+            localStorage.getItem('stocksync_authed') === 'true'
+        ) {
+
+            window.location.href = 'index.html';
+
+        }
+
+
+        /*
+         * Switch between Login and Sign Up
+         */
+
+        function showAuthPanel(which) {
+
+            const loginPanel =
+                document.getElementById('loginPanel');
+
+            const signupPanel =
+                document.getElementById('signupPanel');
+
+            loginPanel.classList.toggle(
+                'hidden',
+                which !== 'login'
+            );
+
+            signupPanel.classList.toggle(
+                'hidden',
+                which !== 'signup'
+            );
+
+
+            const headline =
+                document.getElementById('authHeadline');
+
+            const subline =
+                document.getElementById('authSubline');
+
+
+            if (which === 'signup') {
+
+                headline.textContent =
+                    'Set up your business in minutes.';
+
+                subline.textContent =
+                    'Create your account and start tracking inventory across every warehouse, instantly.';
+
+            } else {
+
+                headline.textContent =
+                    'Inventory that keeps itself in sync.';
+
+                subline.textContent =
+                    'Track stock, forecast demand with AI, and manage every warehouse from a single, modern dashboard.';
+
+            }
+
+        }
+
+
+        /*
+         * Show / Hide password
+         */
+
+        function togglePasswordField(id, iconEl) {
+
+            const input =
+                document.getElementById(id);
+
+            const isHidden =
+                input.type === 'password';
+
+
+            input.type =
+                isHidden ? 'text' : 'password';
+
+
+            iconEl.classList.toggle(
+                'fa-eye',
+                !isHidden
+            );
+
+            iconEl.classList.toggle(
+                'fa-eye-slash',
+                isHidden
+            );
+
+        }
+
+
+        /*
+         * Validate field
+         */
+
+        function setFieldValid(groupId, valid) {
+
+            const group =
+                document.getElementById(groupId);
+
+            if (!group) {
+                return valid;
+            }
+
+            group.classList.toggle(
+                'invalid',
+                !valid
+            );
+
+            return valid;
+
+        }
+
+
+        /*
+         * Validate email
+         */
+
+        function isValidEmail(value) {
+
+            return /\S+@\S+\.\S+/.test(value);
+
+        }
+
+
+        /*
+         * Complete demo authentication
+         */
+
+        function completeAuth(name) {
+
+            localStorage.setItem(
+                'stocksync_authed',
+                'true'
+            );
+
+
+            if (name) {
+
+                localStorage.setItem(
+                    'stocksync_user_name',
+                    name
+                );
+
+            }
+
+
+            showToast(
+                'Welcome to StockSync Demo!'
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    'index.html';
+
+            }, 500);
+
+        }
+
+
+        /*
+         * LOGIN
+         *
+         * Demo only:
+         * Any valid email + password
+         * with at least 6 characters
+         * will enter the dashboard.
+         */
+
+        document
+            .getElementById('loginForm')
+            .addEventListener(
+                'submit',
+                function (e) {
+
+                    e.preventDefault();
+
+
+                    const email =
+                        document
+                            .getElementById('loginEmail')
+                            .value
+                            .trim();
+
+
+                    const pass =
+                        document
+                            .getElementById('loginPassword')
+                            .value;
+
+
+                    let ok = true;
+
+
+                    const validEmail =
+                        isValidEmail(email);
+
+
+                    const validPassword =
+                        pass.length >= 6;
+
+
+                    ok =
+                        setFieldValid(
+                            'loginEmailGroup',
+                            validEmail
+                        ) && ok;
+
+
+                    ok =
+                        setFieldValid(
+                            'loginPasswordGroup',
+                            validPassword
+                        ) && ok;
+
+
+                    if (!ok) {
+                        return;
+                    }
+
+
+                    completeAuth('');
+
+                }
+            );
+
+
+        /*
+         * SIGN UP
+         */
+
+        document
+            .getElementById('signupForm')
+            .addEventListener(
+                'submit',
+                function (e) {
+
+                    e.preventDefault();
+
+
+                    const name =
+                        document
+                            .getElementById('suName')
+                            .value
+                            .trim();
+
+
+                    const business =
+                        document
+                            .getElementById('suBusiness')
+                            .value
+                            .trim();
+
+
+                    const email =
+                        document
+                            .getElementById('suEmail')
+                            .value
+                            .trim();
+
+
+                    const pass =
+                        document
+                            .getElementById('suPassword')
+                            .value;
+
+
+                    const confirm =
+                        document
+                            .getElementById('suConfirm')
+                            .value;
+
+
+                    const terms =
+                        document
+                            .getElementById('suTerms')
+                            .checked;
+
+
+                    let ok = true;
+
+
+                    ok =
+                        setFieldValid(
+                            'suNameGroup',
+                            name.length > 1
+                        ) && ok;
+
+
+                    ok =
+                        setFieldValid(
+                            'suBusinessGroup',
+                            business.length > 1
+                        ) && ok;
+
+
+                    ok =
+                        setFieldValid(
+                            'suEmailGroup',
+                            isValidEmail(email)
+                        ) && ok;
+
+
+                    ok =
+                        setFieldValid(
+                            'suPasswordGroup',
+                            pass.length >= 6
+                        ) && ok;
+
+
+                    ok =
+                        setFieldValid(
+                            'suConfirmGroup',
+                            confirm.length > 0 &&
+                            confirm === pass
+                        ) && ok;
+
+
+                    ok =
+                        setFieldValid(
+                            'suTermsGroup',
+                            terms
+                        ) && ok;
+
+
+                    if (!ok) {
+                        return;
+                    }
+
+
+                    completeAuth(name);
+
+                }
+            );
+
+
+        /*
+         * Toast notification
+         */
+
+        function showToast(
+            message,
+            type = 'success'
+        ) {
+
+            const toast =
+                document.createElement('div');
+
+
+            toast.className =
+                'toast';
+
+
+            const icon =
+                type === 'success'
+                    ? 'fa-check-circle'
+                    : 'fa-exclamation-circle';
+
+
+            const iconColor =
+                type === 'success'
+                    ? 'var(--green)'
+                    : 'var(--red)';
+
+
+            toast.innerHTML = `
+
+                <i
+                    class="fas ${icon}"
+                    style="color:${iconColor};"
+                ></i>
+
+                <span>
+                    ${message}
+                </span>
+
+            `;
+
+
+            document.body.appendChild(toast);
+
+
+            setTimeout(() => {
+
+                toast.style.opacity = '0';
+
+                toast.style.transform =
+                    'translateX(100%)';
+
+                toast.style.transition =
+                    'all 0.3s ease';
+
+
+                setTimeout(() => {
+
+                    toast.remove();
+
+                }, 300);
+
+            }, 3000);
+
+        }
+
+    </script>
+
+</body>
+</html>            filter: blur(10px);
         }
 
         .auth-side-content {
